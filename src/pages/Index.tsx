@@ -1,13 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { EditorSidebar } from "@/components/EditorSidebar";
+import { EditorToolbar } from "@/components/EditorToolbar";
+import { CodeEditor } from "@/components/CodeEditor";
+import { PDFPreview } from "@/components/PDFPreview";
+import { AIAssistantPanel } from "@/components/AIAssistantPanel";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full flex-col">
+        <EditorToolbar />
+        
+        <div className="flex flex-1 overflow-hidden">
+          <EditorSidebar />
+          
+          <main className="flex-1 flex overflow-hidden">
+            <CodeEditor />
+            <PDFPreview />
+            <AIAssistantPanel />
+          </main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
