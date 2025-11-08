@@ -54,10 +54,11 @@ function App() {
       <div className="max-w-6xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Aether LaTeX Editor
+            Texora
           </h1>
+          <p className="text-gray-600">Professional LaTeX Editor</p>
           {!isLatexInstalled && (
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 mt-4">
               <p className="font-bold">Warning</p>
               <p>LaTeX is not installed on your system. Compilation features will not work.</p>
             </div>
