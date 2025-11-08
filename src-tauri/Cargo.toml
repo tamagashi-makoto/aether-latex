@@ -1,0 +1,28 @@
+[package]
+name = "aether-latex"
+version = "0.1.0"
+description = "A Tauri App for LaTeX editing"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+# バイナリターゲットを明示的に指定
+[[bin]]
+name = "aether-latex"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = [ "window-minimize", "window-start-dragging", "window-unminimize", "window-unmaximize", "window-show", "window-maximize", "window-hide", "window-close", "dialog-all", "fs-all", "path-all", "shell-open"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]

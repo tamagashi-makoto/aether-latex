@@ -1,18 +1,31 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
-}));
+  // Tauri expects a fixed port for the dev server
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
+  // Prevent vite from obscuring rust errors
+  clearScreen: false,
+  // To make use of `TAURI_DEBUG` and other env variables
+  // https://tauri.app/v1/api/config#buildconfig.beforedevcommand
+  envPrefix: ['VITE_', 'TAURI_'],
+  build: {
+    // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+    target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
+    // Don't minify for debug builds
+    minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+    // Produce sourcemaps for debug builds
+    sourcemap: !!process.env.TAURI_DEBUG,
+  },
+})
